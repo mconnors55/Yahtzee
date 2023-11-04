@@ -1,0 +1,127 @@
+import java.util.Scanner;
+
+public class yahtzee
+{
+    public static void main(String[] args)
+    {
+        boolean a1 = true;
+        boolean b1 = false;
+        boolean b2 = false;
+        boolean b3 = false;
+        boolean b4 = false;
+        boolean b5 = false;
+        
+        Scanner input = new Scanner(System.in);
+        Dice die = new Dice();
+        die.setArray();
+        
+        System.out.println("This is a fully functional simulated Yahtzee game.");
+        System.out.println("The categories are as follows:");
+        System.out.println("Ones   – count only the dice with a 1 (add the 1’s to get a score)");  
+        System.out.println("Twos   – count only the dice with a 2 (add the 2’s to get a score)");
+        System.out.println("Threes – count only the dice with a 3 (add the 3’s to get a score)");  
+        System.out.println("Fours  – count only the dice with a 4 (add the 4’s to get a score)");
+        System.out.println("Fives  – count only the dice with a 5 (add the 5’s to get a score)");
+        System.out.println("Sixes  - count only the dice with a 6 (add the 6’s to get a score)");
+        System.out.println("If the sum of the upper card is >= 63 points, add 35 points as a bonus");
+        System.out.println("");
+        System.out.println("3 of a kind (if there are 3 dice with the same number, add the dice)");
+        System.out.println("4 of a kind (if there are 4 dice with the same number, add the dice)");
+        System.out.println("Full house     – 3 dice with one number, 2 dice with different number (25 pts)");
+        System.out.println("Small straight – the dice have 4 numbers in a row (ex. 1, 2, 3, 4)    (30 pts)");
+        System.out.println("Large straight – the dice have 5 numbers in a row (1, 2, 3, 4, 5)     (40 pts)");
+        System.out.println("Yahtzee        - all five dice have the same number                   (50 pts)");
+        System.out.println("Chance         - add all dice (used when nothing else seems to fit)");
+        System.out.println("Please hit ENTER to start:");
+        String str = input.nextLine();
+        
+        for(int i = 0; i < 13; i++)
+        {
+            Scanner input1 = new Scanner(System.in);
+            String str2;
+            die.rollDice(); 
+            die.displayDice();
+            
+            for(int j = 0; j < 2; j++)
+            {
+                System.out.println("Would You Like To Roll Again? (Please type 1 for Yes or 2 for No)");
+                str2 = input.nextLine();
+                
+                if(!str2.equals("2"))
+                {
+                    System.out.println("Would You Like To Roll Die #1?");
+                    String str3 = input.nextLine();
+                    if(str3.equals("1"))
+                    {
+                        b1 = true;
+                    }
+                    System.out.println("Would You Like To Roll Die #2?");
+                    String str4 = input.nextLine();
+                    if(str4.equals("1"))
+                    {
+                        b2 = true;
+                    }
+                    System.out.println("Would You Like To Roll Die #3?");
+                    String str5 = input.nextLine();
+                    if(str5.equals("1"))
+                    {
+                        b3 = true;
+                    }
+                    System.out.println("Would You Like To Roll Die #4?");
+                    String str6 = input.nextLine();
+                    if(str6.equals("1"))
+                    {
+                        b4 = true;
+                    }
+                    System.out.println("Would You Like To Roll Die #5?");
+                    String str7 = input.nextLine();
+                    if(str7.equals("1"))
+                    {
+                        b5 = true;
+                    }
+                    die.rollAgain(b1, b2, b3, b4, b5);
+                    die.displayDice();
+                    b1 = false;
+                    b2 = false;
+                    b3 = false;
+                    b4 = false;
+                    b5 = false;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            System.out.println("Please Select the Category You Would Like to Play: ");
+            System.out.println("NOTE: Only Categories That Have Not Previously Been Played Can Be Selected!");
+            die.displayCard();
+            int a = input.nextInt();
+            input.nextLine();
+            
+            while(die.getArray(a-1) != -1)
+            {
+                System.out.println("Unfortunately that Category has been Played");
+                System.out.println("Please Select the Category You Would Like to Play: ");
+                System.out.println("NOTE: Only Categories That Have Not Previously Been Played Can Be Selected!");
+                die.displayCard();
+                a = input.nextInt();
+                input.nextLine();
+            }
+            int b = die.calculatePoints(a);
+            System.out.println();
+            System.out.println("The Points Earned This Turn: " + b);
+            die.displayCard();
+        }
+        if(die.getFirstBonus())
+        {
+            System.out.println("You earned the first bonus of 35 points!");
+        }
+        if(die.checkYahtzee() == 50)
+        {
+            System.out.println("You earned the second bonus of 100 points!");
+        }
+        System.out.println("Your Final Score Is: " + die.getPoints());
+        System.out.println("Thank You For Playing!");
+    }
+}
