@@ -1,0 +1,598 @@
+public class dice 
+{
+    int[] dice = new int[5];
+    int[] array = new int[13];
+    
+    private int points;
+    
+    int ones = -1;
+    int twos = -1;
+    int threes = -1;
+    int fours = -1;
+    int fives = -1;
+    int sixes = -1;
+    
+    int threeOfKind = -1;
+    int fourOfKind = -1;
+    int fullHouse = -1;
+    int smStraight = -1;
+    int lgStraight = -1;
+    int yahtzee = -1;
+    int chance = -1;
+
+    public Dice()
+    {
+        ones = -1;
+        twos = -1;
+        threes = -1;
+        fours = -1;
+        fives = -1;
+        sixes = -1;
+    
+        threeOfKind = -1;
+        fourOfKind = -1;
+        fullHouse = -1;
+        smStraight = -1;
+        lgStraight = -1;
+        yahtzee = -1;
+        chance = -1;
+    }
+    
+    public void setArray()
+    {
+        for(int i = 0; i < array.length; i++)
+        {
+            array[i] = -1;
+        }
+    }
+    
+    public int getArray(int a)
+    {
+        return array[a];
+    }
+    
+    public void setDice(int a, int b, int c, int d, int e)
+    {
+        dice[0] = a;
+        dice[1] = b;
+        dice[2] = c;
+        dice[3] = d;
+        dice[4] = e;
+    }
+    public void rollDice()
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            dice[i] = (int)((Math.random()*6)+1);
+        }
+    }
+    public void rollAgain(boolean a, boolean b, boolean c, boolean d, boolean e)
+    {
+        if(a)
+        {
+            dice[0] = (int)((Math.random()*6)+1);
+        }
+        if(b)
+        {
+            dice[1] = (int)((Math.random()*6)+1);
+        }
+        if(c)
+        {
+            dice[2] = (int)((Math.random()*6)+1);
+        }
+        if(d)
+        {
+            dice[3] = (int)((Math.random()*6)+1);
+        }
+        if(e)
+        {
+            dice[4] = (int)((Math.random()*6)+1);
+        }
+    }
+    public String displayDice()
+    {
+        System.out.println("Your Dice Are: ");
+        for(int i = 0; i < 5; i++)
+        {
+            System.out.print(dice[i]);
+            System.out.print(" ");
+        }
+        System.out.println();
+        return "";
+    }
+    public int checkKind(int n)
+    {
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int five = 0;
+        int six = 0;
+        int count = 0;
+        if(n == 3)
+        {
+            for(int i = 0; i < dice.length; i++)
+            {
+                if(dice[i] == 1)
+                {
+                    one++;
+                }
+                if(dice[i] == 2)
+                {
+                    two++;
+                }
+                if(dice[i] == 3)
+                {
+                    three++;
+                }
+                if(dice[i] == 4)
+                {
+                    four++;
+                }
+                if(dice[i] == 5)
+                {
+                    five++;
+                }
+                if(dice[i] == 6)
+                {
+                    six++;
+                }
+            }
+            if(one == 3 || two == 3 || three == 3 || four == 3 || five == 3 || six == 3)
+            {
+                return dice[0] + dice[1] + dice[2] + dice[3] + dice[4];
+            }
+        }
+        if(n == 4)
+        {
+            for(int i = 0; i < dice.length; i++)
+            {
+                if(dice[i] == 1)
+                {
+                    one++;
+                }
+                if(dice[i] == 2)
+                {
+                    two++;
+                }
+                if(dice[i] == 3)
+                {
+                    three++;
+                }
+                if(dice[i] == 4)
+                {
+                    four++;
+                }
+                if(dice[i] == 5)
+                {
+                    five++;
+                }
+                if(dice[i] == 6)
+                {
+                    six++;
+                }
+            }
+            if(one == 4 || two == 4 || three == 4 || four == 4 || five == 4 || six == 4)
+            {
+                return dice[0] + dice[1] + dice[2] + dice[3] + dice[4];
+            }
+        }
+        return 0;
+    }
+    public int checkYahtzee()
+    {
+        int count1 = 0;
+        for(int i = 0; i < dice.length-1; i++)
+        {
+            if(dice[i] == dice[i+1])
+            {
+                count1++;
+            }
+        }
+        if(count1 == 4)
+        {
+            return 50;
+        }
+        return 0;
+    }
+    public int checkSmallStraight()
+    {
+        for(int a = 0; a < dice.length; a++)
+        {
+            if(dice[a] == 1)
+            {
+                for(int b = 0; b < dice.length; b++)
+                {
+                    if(dice[b] == 2)
+                    {
+                        for(int c = 0; c < dice.length; c++)
+                        {
+                            if(dice[c] == 3)
+                            {
+                                for(int d = 0; d < dice.length; d++)
+                                {
+                                    if(dice[d] == 4)
+                                    {
+                                        return 30;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(int e = 0; e < dice.length; e++)
+        {
+            if(dice[e] == 2)
+            {
+                for(int f = 0; f < dice.length; f++)
+                {
+                    if(dice[f] == 3)
+                    {
+                        for(int g = 0; g < dice.length; g++)
+                        {
+                            if(dice[g] == 4)
+                            {
+                                for(int h = 0; h < dice.length; h++)
+                                {
+                                    if(dice[h] == 5)
+                                    {
+                                        return 30;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < dice.length; i++)
+        {
+            if(dice[i] == 3)
+            {
+                for(int j = 0; j < dice.length; j++)
+                {
+                    if(dice[j] == 4)
+                    {
+                        for(int k = 0; k < dice.length; k++)
+                        {
+                            if(dice[k] == 5)
+                            {
+                                for(int l = 0; l < dice.length; l++)
+                                {
+                                    if(dice[l] == 6)
+                                    {
+                                        return 30;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    public int checkLargeStraight()
+    {
+        for(int m = 0; m < dice.length; m++)
+        {
+            if(dice[m] == 1)
+            {
+                for(int n = 0; n < dice.length; n++)
+                {
+                    if(dice[n] == 2)
+                    {
+                        for(int o = 0; o < dice.length; o++)
+                        {
+                            if(dice[o] == 3)
+                            {
+                                for(int p = 0; p < dice.length; p++)
+                                {
+                                    if(dice[p] == 4)
+                                    {
+                                        for(int q = 0; q < dice.length; q++)
+                                        {
+                                            if(dice[q] == 5)
+                                            {
+                                                return 40;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(int r = 0; r < dice.length; r++)
+        {
+            if(dice[r] == 2)
+            {
+                for(int s = 0; s < dice.length; s++)
+                {
+                    if(dice[s] == 3)
+                    {
+                        for(int t = 0; t < dice.length; t++)
+                        {
+                            if(dice[t] == 4)
+                            {
+                                for(int u = 0; u < dice.length; u++)
+                                {
+                                    if(dice[u] == 5)
+                                    {
+                                        for(int v = 0; v < dice.length; v++)
+                                        {
+                                            if(dice[v] == 6)
+                                            {
+                                                return 40;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    public int checkFullHouse()
+    {
+        boolean a1 = false;
+        boolean a2 = false;
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int five = 0;
+        int six = 0;
+        int count = 0;
+        
+        for(int i = 0; i < dice.length; i++)
+        {
+            if(dice[i] == 1)
+            {
+                one++;
+            }
+            if(dice[i] == 2)
+            {
+                two++;
+            }
+            if(dice[i] == 3)
+            {
+                three++;
+            }
+            if(dice[i] == 4)
+            {
+                four++;
+            }
+            if(dice[i] == 5)
+            {
+                five++;
+            }
+            if(dice[i] == 6)
+            {
+                six++;
+            }
+        }
+        if(one == 3 || two == 3 || three == 3 || four == 3 || five == 3 || six == 3)
+        {
+            a1 = true;
+        }
+        if(one == 2 || two == 2 || three == 2 || four == 2 || five == 2 || six == 2)
+        {
+            a2 = true;
+        }
+        if(a1 && a2)
+        {
+            return 25;
+        }
+        return 0;
+    }
+    public int checkChance()
+    {
+        int count = 0;
+        for(int i = 0; i < dice.length; i++)
+        {
+            count += dice[i];
+        }
+        return count;
+    }
+    public int checkNumber(int a)
+    {
+        int count = 0;
+        for(int i = 0; i < 5; i++)
+        {
+            if(dice[i] == a)
+            {
+                count += dice[i];
+            }
+        }
+        return count;
+    }
+    
+    public int calculatePoints(int a)
+    {
+        if(a == 1)
+        {
+            if(ones == -1)
+            {
+                ones = checkNumber(1);
+                points += ones;
+                array[0] = ones;
+                return ones;
+            }
+        }
+        if(a == 2)
+        {
+            if(twos == -1)
+            {
+                twos = checkNumber(2);
+                points += twos;
+                array[1] = twos;
+                return twos;
+            }
+        }
+        if(a == 3)
+        {
+            if(threes == -1)
+            {
+                threes = checkNumber(3);
+                points += threes;
+                array[2] = threes;
+                return threes;
+            }
+        }
+        if(a == 4)
+        {
+            if(fours == -1)
+            {
+                fours = checkNumber(4);
+                points += fours;
+                array[3] = fours;
+                return fours;
+            }
+        }
+        if(a == 5)
+        {
+            if(fives == -1)
+            {
+                fives = checkNumber(5);
+                points += fives;
+                array[4] = fives;
+                return fives;
+            }
+        }
+        if(a == 6)
+        {
+            if(sixes == -1)
+            {
+                sixes = checkNumber(6);
+                points += sixes;
+                array[5] = sixes;
+                return sixes;
+            }
+        }
+        if(a == 7)
+        {
+            if(threeOfKind == -1)
+            {
+                threeOfKind = checkKind(3);
+                points += threeOfKind;
+                array[6] = threeOfKind;
+                return threeOfKind;
+            }
+        }
+        if(a == 8)
+        {
+            if(fourOfKind == -1)
+            {
+                fourOfKind = checkKind(4);
+                points += fourOfKind;
+                array[7] = fourOfKind;
+                return fourOfKind;
+            }
+        }
+        if(a == 9)
+        {
+            if(fullHouse == -1)
+            {
+                fullHouse = checkFullHouse();
+                points += fullHouse;
+                array[8] = fullHouse;
+                return fullHouse;
+            }
+        }
+        if(a == 10)
+        {
+            if(smStraight == -1)
+            {
+                smStraight = checkSmallStraight();
+                points += smStraight;
+                array[9] = smStraight;
+                return smStraight;
+            }
+        }
+        if(a == 11)
+        {
+            if(lgStraight == -1)
+            {
+                lgStraight = checkLargeStraight();
+                points += lgStraight;
+                array[10] = lgStraight;
+                return lgStraight;
+            }
+        }
+        if(a == 12)
+        {
+            if(yahtzee == -1)
+            {
+                yahtzee = checkYahtzee();
+                points += yahtzee;
+                array[11] = yahtzee;
+                return yahtzee;
+            }
+        }
+        if(a == 13)
+        {
+            if(chance == -1)
+            {
+                chance = checkChance();
+                points += chance;
+                array[12] = chance;
+                return chance;
+            }
+        }
+        return 0;
+    }
+    public int getPoints()
+    {
+        if(getFirstBonus())
+        {
+            points += 35;
+        }
+        if(checkYahtzee() == 50)
+        {
+            points += 100;
+        }
+        return points;
+    }
+    public boolean getFirstBonus()
+    {
+        int z = 0;
+        for(int i = 0; i < 5; i++)
+        {
+            z += dice[i];
+        }
+        if(z >= 63)
+        {
+            return true;
+        }
+        return false;
+    }
+    public String displayCard()
+    {
+        System.out.println();
+        System.out.println("Name:                    Score: ");
+        System.out.println();
+        System.out.println(" 1 - Ones:                   " + array[0]);
+        System.out.println(" 2 - Twos:                   " + array[1]);
+        System.out.println(" 3 - Threes:                 " + array[2]);
+        System.out.println(" 4 - Fours:                  " + array[3]);
+        System.out.println(" 5 - Fives:                  " + array[4]);
+        System.out.println(" 6 - Sixes:                  " + array[5]);
+        System.out.println(" 7 - Three of a Kind:        " + array[6]);
+        System.out.println(" 8 - Four of a Kind:         " + array[7]);
+        System.out.println(" 9 - Full House:             " + array[8]);
+        System.out.println("10 - Small Straight:         " + array[9]);
+        System.out.println("11 - Large Straight:         " + array[10]);
+        System.out.println("12 - Yahtzee:                " + array[11]);
+        System.out.println("13 - Chance:                 " + array[12]);
+        System.out.println();
+        return "";
+    }
+}
